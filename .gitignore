@@ -1,0 +1,17 @@
+# 阶段备份与临时产物（绝不入库）
+*.bak-*
+*.globalbak
+client.js.new*
+index.js.new*
+
+# 编辑器 / 系统垃圾
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+*.swp
+
+# 依赖与构建产物（本插件零运行时依赖，正常不会出现）
+node_modules/
+dist/
+*.log

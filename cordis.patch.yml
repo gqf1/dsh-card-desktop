@@ -1,0 +1,9 @@
+# dsh-card-desktop bundle patch: inserts the host row into the profile's
+# plugin roster. The browser half rides the package's `dsh.client` manifest
+# (the client registry serves lib/client.js), and this row materializes the
+# host plugin (fs + /desk/api routes) on boot.
+# Installed with `dsh plugin --profile <name> add <path>`; the bundle patch is
+# applied automatically — do NOT insert this row again in the profile patch.
+- insert:
+    - id: card-desktop
+      name: 'dsh-card-desktop'

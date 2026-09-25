@@ -1,0 +1,32 @@
+{
+  "name": "dsh-card-desktop",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "description": "卡片桌面：代码工作台 + Vivado RTL 层次浏览（Explorer/Hierarchy/行号高亮编辑器）",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "verilog",
+    "vivado",
+    "code-editor"
+  ],
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  }
+}
