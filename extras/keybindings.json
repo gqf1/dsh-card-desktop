@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 2,
+  "profiles": {
+    "desktop:windows": {
+      "workspace.files": {
+        "code": "KeyU",
+        "modifiers": [
+          "control",
+          "alt"
+        ]
+      },
+      "shortcuts.open": {
+        "code": "KeyH",
+        "modifiers": [
+          "control",
+          "alt"
+        ]
+      },
+      "session.search": {
+        "code": "KeyK",
+        "modifiers": [
+          "control",
+          "alt"
+        ]
+      },
+      "workspace.add": {
+        "code": "KeyA",
+        "modifiers": [
+          "control",
+          "alt"
+        ]
+      },
+      "session.rename": {
+        "code": "KeyR",
+        "modifiers": [
+          "control",
+          "alt"
+        ]
+      },
+      "terminal.new": {
+        "code": "KeyT",
+        "modifiers": [
+          "control",
+          "alt"
+        ]
+      },
+      "page.close": {
+        "code": "KeyW",
+        "modifiers": [
+          "control",
+          "shift"
+        ]
+      },
+      "pane.split": {
+        "code": "KeyL",
+        "modifiers": [
+          "control",
+          "alt"
+        ]
+      },
+      "session.new": {
+        "code": "KeyN",
+        "modifiers": [
+          "control",
+          "shift"
+        ]
+      }
+    }
+  }
+}
