@@ -13,12 +13,20 @@ DeepSeek Harness（DSH）的**卡片桌面**插件：在里面开一个全屏代
 | 你在用 | 需要准备 |
 |---|---|
 | **DSH 桌面客户端**（`DeepSeek Harness.exe`） | **什么都不用装**。客户端自带 Node 和 pnpm |
-| **浏览器版 / 命令行**（`dsh web`） | Node 18+、DSH、pnpm |
+| **浏览器版 / 命令行**（`dsh web`） | Node 18+、DSH **0.2.1-rc.2 或更高**、pnpm |
+
+> **注意版本：** npm 上 `latest` 标签目前指向 `0.2.0-rc.2`，比本插件要求的版本低。必须显式装 `next` 标签或指定版本，否则插件装上后入口不出现：
+>
+> ```bash
+> npm i -g @deepseek-ai/dsh@next
+> ```
+>
+> 或者钉死版本：`npm i -g @deepseek-ai/dsh@0.2.1-rc.2`
 
 检查版本（仅浏览器版需要）：
 
 ```bash
-dsh --version     # 开发与测试所用版本：0.2.1-rc.2
+dsh --version     # 必须是 0.2.1-rc.2 或更高
 pnpm --version
 ```
 
@@ -192,6 +200,10 @@ dsh plugin --profile web remove dsh-card-desktop
 ---
 
 ## 版本
+
+### v0.3.1
+
+- 修正安装说明：npm 的 `latest` 仍指向 `0.2.0-rc.2`，必须显式装 `@deepseek-ai/dsh@next`（= 0.2.1-rc.2），否则插件装上后入口不出现
 
 ### v0.3.0
 
