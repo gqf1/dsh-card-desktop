@@ -153,6 +153,38 @@ dsh plugin --profile web add D:\dsh-card-desktop
 
 ---
 
+## 配套插件（可选，不装也能用）
+
+本插件**零 npm 运行时依赖**，单独装就能完整运行。下面几个是同一套 DSH 里常见的配套插件——装上后工作台里会多出对应能力，不装则相关入口降级，**不影响工作台本体**。
+
+| 插件 | 在工作台里多出什么 | 靠什么接进来 | 不装会怎样 |
+| --- | --- | --- | --- |
+| [`@michengai/dsh-btw`](https://github.com/MichengAI/dsh-btw) | 聊天栏输入 `/btw 问题`，基于当前会话上下文旁问，独立气泡作答，不执行工具、不改代码 | v0.4.0 起本插件把聊天栏的斜杠命令**透传给宿主命令系统** | 输入 `/btw …` 会被当普通消息发给模型，不出现旁问气泡 |
+| [`@feng0531/dsh-code-review`](https://github.com/f-e-n-g-0531/dsh-code-review) | 对话里的 Agent 能调用 `code_review_preview` / `code_review_execute` 做只读的 Git / SVN 变更审查 | 它是标准 DSH **工具**插件，注册在宿主工具表里，工作台的 AI 对话面板直接可用 | Agent 没有这两个工具；仍可用工作台自带的「AI 审查」按钮 |
+| [`@linxin666/dsh-web-all`](https://github.com/linxin666/dsh-web-all) | 桌面背景图（`dragon-heir` 皮肤资源） | 皮肤资源由该插件提供 | 背景退化成纯色，**不影响任何功能** |
+
+> **工作台自带的「AI 审查 / AI 简化」按钮不依赖上面任何插件**。它是 v0.4.0 新增的内置功能：点一下就把当前未提交改动（没有 Git 时用选区或当前文件全文）拼进提示词发给当前会话。
+> 与 `@feng0531/dsh-code-review` 的分工：**自带按钮** = 看「当前改了什么」并直接对话，轻量；**code-review 插件** = 结构化预览 → 确认 → 出分级报告，可追溯。
+
+### 怎么确认自己装齐了
+
+「设置 → 插件管理器」里看已装列表。本插件开发时用的参考组合（**不是必须，按需装**）：
+
+```text
+dsh-card-desktop          本插件（本地目录 / link 安装）
+dsh-memory-evolve         记忆系统
+dsh-context               上下文用量
+dsh-cost-meter            费用统计
+dsh-image-gen             图像生成
+dsh-obsidian              Obsidian 笔记
+dshmarket                 插件市场
+@linxin666/dsh-web-all    桌面皮肤 / 背景
+@michengai/dsh-btw        旁问（/btw）
+@feng0531/dsh-code-review 代码审查（code_review_*）
+```
+
+---
+
 ## 常见问题
 
 ### 装完了，但界面上找不到入口
@@ -220,6 +252,15 @@ dsh plugin --profile web remove dsh-card-desktop
 ---
 
 ## 版本
+
+### v0.4.0
+
+- **斜杠命令透传**：聊天栏支持 `/btw`、`/simplify`、`/compact`、`/context`、`/goal` 等宿主命令，返回文本渲染成可关闭的提示条（最多保留 6 条）；不认识的输入（例如粘贴一个 `/路径`）自动回落成普通消息，不报错
+- **AI 审查 / AI 简化**：Git 面板新增两个按钮，把未提交改动发给当前会话；不是 Git 仓库时用当前选区或当前文件全文兜底；RTL 文件只允许改注释与命名
+- **静态检查悬停命中修正**：提示框按**显示列**判定（含 Tab 的缩进行以前会「放在信号上没提示、放到前面空白反而弹出」）
+- **对话自动跟随修正**：往上滚之后不再被上一帧的贴底拽回底部；右下角指示圈改为反映「是否真的在底部」
+- **模型显示修正**：按会话投影的 `lastUsed` 读取，与主界面一致；取不到时在名字后标「（默认）」
+- **Git 面板状态恢复**：退出再进工作台时恢复历史面板展开状态与选中的提交 / 文件
 
 ### v0.3.2
 
