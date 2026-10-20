@@ -1,6 +1,6 @@
 {
   "name": "dsh-card-desktop",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
