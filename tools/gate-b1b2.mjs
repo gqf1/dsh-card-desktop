@@ -17,7 +17,7 @@
  *   9. 作用域自检 `deskAiRef 必须在 ChatPanel 之后声明`
  *
  * 为什么删：B2（Git 面板「AI 审查 / AI 简化」按钮）已于 2026-10-20 从
- * client.js 整体移除。证据：lib/client.bak-20261020-before-remove-ai-buttons.js
+ * client.js 整体移除。证据：git 历史 e1d030e 之前的 lib/client.bak-20261020-before-remove-ai-buttons.js（该 .bak 已于 2026-11-02 删除，改动已进 git）
  * 里上述 7 个锚点各命中 1 次、`2026-10-19 B2` 标记存在；当前 client.js 全部
  * 命中 0 次。门禁没跟着改，所以永远红 → 被当噪声忽略 → 真回归抓不住。
  *
