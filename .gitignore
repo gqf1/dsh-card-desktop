@@ -1,0 +1,3 @@
+# 发布/运行不需要的东西不入库
+_audit/
+node_modules/

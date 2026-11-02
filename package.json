@@ -1,0 +1,30 @@
+{
+  "name": "dsh-card-desktop",
+  "version": "0.6.0",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "description": "卡片桌面：代码工作台 + Vivado RTL 层次浏览（Explorer/Hierarchy/行号高亮编辑器）+ 音乐（需 dsh-music-hub）",
+  "peerDependencies": {
+    "dsh-music-hub": "*"
+  },
+  "peerDependenciesMeta": {
+    "dsh-music-hub": {
+      "optional": true
+    }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  }
+}
