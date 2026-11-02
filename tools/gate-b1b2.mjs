@@ -44,7 +44,7 @@
  * 为什么不做"裸括号计数"：文件里有大量正则与中文注释，裸计数会把
  * `\(` 与注释里的括号算进去，原始文件就"不平衡"（实测 +16），属假红。
  * 语法正确性以 node --check 为准，那是唯一权威判据。
- * （全量括号平衡检查在 tools/_audit/verify-all.ps1，那边是先剔除字符串与
+ * （全量括号平衡检查的旧实现 tools/_audit/verify-all.ps1 已于 2026-11-02 删除，未入库；那边是先剔除字符串与
  *   注释再统计的严格口径，两者分工不同。）
  */
 import { readFileSync, copyFileSync, unlinkSync, mkdtempSync } from 'node:fs'
