@@ -1,7 +1,6 @@
 {
   "name": "dsh-card-desktop",
   "version": "0.6.0",
-  "private": true,
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -10,6 +9,27 @@
     "./package.json": "./package.json"
   },
   "description": "卡片桌面：代码工作台 + Vivado RTL 层次浏览（Explorer/Hierarchy/行号高亮编辑器）+ 音乐（需 dsh-music-hub）",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "verilog",
+    "vivado",
+    "fpga",
+    "code-editor"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gqf1/dsh-card-desktop.git"
+  },
+  "homepage": "https://github.com/gqf1/dsh-card-desktop",
+  "files": [
+    "lib",
+    "extras",
+    "cordis.patch.yml",
+    "README.md"
+  ],
   "peerDependencies": {
     "dsh-music-hub": "*"
   },
@@ -19,6 +39,9 @@
     }
   },
   "dsh": {
+    "engines": {
+      "dsh": ">=0.2.2-rc.1"
+    },
     "bundle": {
       "patch": "./cordis.patch.yml"
     },
