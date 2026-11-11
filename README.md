@@ -1,79 +1,92 @@
 # dsh-card-desktop
 
-DeepSeek Harness（DSH）的**卡片桌面**插件：在里面开一个全屏代码工作台，用卡片式界面看工程、编辑 Verilog、跑静态检查；**内置音乐播放器入口**（需配合 `dsh-music-hub`）。
+DeepSeek Harness（DSH）的**卡片桌面**插件：在里面开一个全屏代码工作台，用卡片式界面看工程、编辑 Verilog、跑静态检查；**内置音乐播放器入口**（配合 `dsh-music-hub`）。
 
 不是独立软件，是 DSH 的插件。装之前得先有 DSH。
 
 ---
 
+## 一共两个插件，都装才算齐
+
+| 插件 | 仓库 | 装了什么才有 |
+|---|---|---|
+| **`dsh-card-desktop`**（本仓库） | [gqf1/dsh-card-desktop](https://github.com/gqf1/dsh-card-desktop) | 卡片桌面、代码工作台（Explorer / Verilog 编辑 / Git / 终端 / AI 对话） |
+| **`dsh-music-hub`** | [gqf1/dsh-music-hub](https://github.com/gqf1/dsh-music-hub) | 音乐播放器：输入框上方的播放条 + 卡片桌面里的「音乐」页 |
+
+**两个插件互不依赖，各自独立安装、独立开关：**
+
+- 只装本插件 → 代码工作台全部可用；卡片桌面里的「音乐」点进去是空面板，**不报错、不影响其他功能**。
+- 只装音乐插件 → 播放条照常出现在每个会话上方，卡片桌面不出现。
+
+> **为什么不是一个包装两个**：DSH 的聚合包（像 `@linxin666/dsh-web-all`）靠 pnpm 从 npm registry 拉子包。
+> 这两个插件目前只在 GitHub 上，pnpm 11 默认禁止子包使用 git 依赖（`blockExoticSubdeps`），
+> 写成聚合包会在同事机器上直接安装失败（`ERR_PNPM_EXOTIC_SUBDEP`）。
+> 所以采用**两个独立仓库、分两次安装**这个可靠做法。
+
 ## 两条安装路线，先选一条
 
 | | 推荐场景 | 做的事 |
 |---|---|---|
-| **路线 A：全家桶（省事）** | 想把「代码工作台 + 音乐」一起装好 | 装一个 `dsh-desk-all` 聚合包，两个插件一起来，之后可各自开关 |
-| **路线 B：单独装** | 只要代码工作台，不要音乐 | 按下面「安装」章节走 |
+| **路线 A：直接装（推荐）** | 从 GitHub / npm 装 | 插件管理器里填两行 `github:` 地址 |
+| **路线 B：本地目录** | 要改代码、或网络不好下 zip | clone/解压到本地，按本地路径装 |
 
-> 两条路线**不要同时走**——同时装会出现两行同名插件，整棵插件树加载失败。
-
----
-
-# 路线 A：全家桶 `dsh-desk-all`
-
-一个聚合包，装完同时得到：
-
-| 插件 | 是什么 | 关掉后 |
-|---|---|---|
-| **`dsh-card-desktop`** | 卡片桌面 / 代码工作台（本仓库主插件） | 卡片桌面整个不出现，其它 DSH 功能不受影响 |
-| **`dsh-music-hub`** | 音乐播放器（本地曲库 + QQ / 酷狗 / 网易云），播放条挂在输入框上方 | 播放条与播放面板消失；卡片桌面里的「音乐」入口打开是空面板，**不影响代码工作台** |
-
-两个插件**互不依赖**，随便开关哪一个都不会让另一个坏掉。
-
-## 装法
-
-打开 DSH →「设置」→「插件管理器」→ **Add plugin**，填这一行：
-
-```
-github:gqf1/dsh-card-desktop#bundle
-```
-
-> 那串 `#bundle` 指的是本仓库里的 `bundle/` 子目录——聚合包住在里面。
-> **不能省**，省了装的是主插件本身，不是全家桶。
-
-然后**完全退出 DSH 再重新打开**（桌面客户端点右上角 `×` 只是收进托盘，要从托盘右键退出）。
-
-**命令行版 / 浏览器版**：
-
-```bash
-dsh plugin --profile web add github:gqf1/dsh-card-desktop#bundle
-```
-
-## 装完怎么开关单个插件
-
-进「插件管理器」，列表里会同时看到两条：
-
-- `card-desktop` —— 卡片桌面
-- `music-hub` —— 音乐
-
-想只留代码工作台：把 `music-hub` 关掉。想只留音乐：把 `card-desktop` 关掉。**改完重启 DSH 生效。**
-
-## 卸载全家桶
-
-插件管理器里卸载 `dsh-desk-all`（它会把两个子插件一起带走）。
+> 两条路线**不要同时走**——至少不要对同一个插件既装 GitHub 版又装本地版，
+> 否则 profile 里会出现两行同名插件，整棵插件树加载失败。
 
 ---
 
-# 路线 B：单独装 `dsh-card-desktop`
+# 路线 A：直接装（推荐）
+
+## 第一步：装卡片桌面
+
+DSH →「设置」→「插件管理器」→ **Add plugin**，填：
+
+```
+github:gqf1/dsh-card-desktop
+```
+
+## 第二步：装音乐插件
+
+同样位置再点一次 **Add plugin**，填：
+
+```
+github:gqf1/dsh-music-hub
+```
+
+## 第三步：完全退出 DSH，再重新打开
+
+**装完必须重启，不重启不生效。**
+
+> **桌面客户端注意**：点窗口右上角的 `×` 只是最小化到托盘，**不算退出**。
+>
+> 正确做法：**右下角托盘图标 → 右键 → 退出**，然后再双击桌面图标启动。
+
+## 第四步：确认
+
+插件管理器列表里应该有 `dsh-card-desktop` 和 `dsh-music-hub` 两条。
+会话里应该能看到：侧栏「卡片桌面」入口 + 输入框上方的音乐播放条。
+
+## 想只留一个 / 临时关掉某个
+
+插件管理器里对那一行点关闭开关，然后**重启 DSH**。
+
+| 想要的效果 | 操作 |
+|---|---|
+| 只要代码工作台，不要音乐 | 关掉 `dsh-music-hub` |
+| 只要音乐播放条，不要卡片桌面 | 关掉 `dsh-card-desktop` |
+
+---
+
+# 路线 B：本地目录安装
 
 ## 前置要求
-
-装法分两条路，**先确认你用的是哪一个**：
 
 | 你在用 | 需要准备 |
 |---|---|
 | **DSH 桌面客户端**（`DeepSeek Harness.exe`） | **什么都不用装**。客户端自带 Node 和 pnpm |
 | **浏览器版 / 命令行**（`dsh web`） | Node 18+、DSH **0.2.2-rc.1 或更高**、pnpm |
 
-> **注意版本：** 本插件声明 `dsh.engines.dsh >= 0.2.2-rc.1`。低于这个版本装上后入口不出现。
+> **注意版本：** 两个插件都声明 `dsh.engines.dsh >= 0.2.2-rc.1`。低于这个版本装上后入口不出现。
 >
 > ```bash
 > npm i -g @deepseek-ai/dsh@next
@@ -86,106 +99,52 @@ dsh --version     # 必须是 0.2.2-rc.1 或更高
 pnpm --version
 ```
 
----
-
-## 安装
-
-### 第一步：把插件放到本地
-
-**方式 A —— 用 git**
+## 第一步：把两个仓库都放到本地
 
 ```bash
 git clone https://github.com/gqf1/dsh-card-desktop.git D:\dsh-card-desktop
+git clone https://github.com/gqf1/dsh-music-hub.git   D:\dsh-music-hub
 ```
 
-> 注意：仓库根目录就是主插件。**不要**进 `bundle/`——那是全家桶目录（见路线 A）。
+不用 git 的话，各自在仓库页面点 `Code` → `Download ZIP` 解压。
 
-**方式 B —— 下载 zip**
-
-在仓库页面点 `Code` → `Download ZIP`，解压到任意目录，例如 `D:\dsh-card-desktop`。
-
-> **解压完先打开这个文件夹看一眼**：里面应该**直接**能看到 `package.json`、`lib\`、`extras\` 这三样。
+> **解压完先打开这个文件夹看一眼**：`dsh-card-desktop` 里应该**直接**能看到 `package.json`、`lib\`、`extras\`。
 >
 > 如果进去看到的是又一个同名文件夹（Windows 的「全部解压」默认会多套一层），那就再进一层——**能直接看到 `package.json` 的那一层，才是下面要填的路径。**
 
-> 记住这个目录的**完整路径**，下一步要用。
+## 第二步：装进 DSH
 
-### 第二步：装进 DSH —— 按你用哪个客户端选一条
-
-#### 路线 1：桌面客户端（推荐，最简单）
-
-命令行**装不了**桌面客户端的插件——DSH 会把 `desktop` 这个 profile 锁给客户端自己管。你从命令行跑会看到：
+**桌面客户端**：「设置」→「插件管理器」→ Add plugin，**分两次**分别填：
 
 ```
-error: profile "desktop" is managed exclusively by the Electron application
+D:\dsh-card-desktop
+D:\dsh-music-hub
 ```
 
-正确做法是用应用内的**插件管理器**：
-
-1. 打开 DSH 桌面客户端
-2. 进「设置」→「插件管理器」（Plugin Manager）
-3. 点 **Add plugin**（添加插件）
-4. 在输入框里填**插件目录的完整绝对路径**，例如：
-
-   ```
-   D:\dsh-card-desktop
-   ```
-
-   > Add plugin 支持四种写法：npm 包名、Git 地址、压缩包、**本地绝对路径**。本地目录用最后一种。
-   > 直接从 GitHub 装也行：填 `github:gqf1/dsh-card-desktop`。
-
-5. 提交，等它装完
-
-#### 路线 2：浏览器版 / 命令行
+**浏览器版 / 命令行**：
 
 ```bash
 dsh plugin --profile web add D:\dsh-card-desktop
+dsh plugin --profile web add D:\dsh-music-hub
 ```
 
-**三个必须注意的点：**
+> **三个必须注意的点：**
+> 1. **`--profile web` 不能省**。省了会直接报错。
+> 2. **路径必须是绝对路径**。不要用 `dsh plugin add .` —— 相对路径按当前目录解析，可能把 profile 自己 link 进去，把环境搞坏。
+> 3. **把示例路径替换成你自己的实际路径。**
 
-1. **`--profile web` 不能省。** 省了会直接报错（该参数是必填项）。
-2. **路径必须是绝对路径。** 不要用 `dsh plugin add .` —— 相对路径会按你当前所在目录解析，可能把 profile 自己 link 进去，把环境搞坏。
-3. **把你自己的实际路径替换进去。** 上面写的是 `D:\dsh-card-desktop`，你解压到哪就写哪。
+## 第三步：完全退出 DSH，再重新打开
 
-### 第三步：完全退出 DSH，再重新打开
+同上：**托盘右键退出**，不是点 `×`。
 
-**装完必须重启，不重启不生效。**
+## 第四步：打开它
 
-> **桌面客户端注意**：点窗口右上角的 `×` 只是最小化到托盘，**不算退出**。
->
-> 正确做法：**右下角托盘图标 → 右键 → 退出**，然后再双击桌面图标启动。
->
-> 只关窗口不退出的话，插件不会被重新加载，看起来就像"装了没效果"。
+重启后打开任意一个会话：
 
-### 第四步：打开它
+- **卡片桌面入口**在侧栏（收起侧栏时出现在**输入框左侧**）
+- **音乐播放条**在输入框上方
 
-重启后打开任意一个会话，**在会话头部的按钮区**找卡片桌面的入口，点进去。
-
-> 空白的新会话里，入口会出现在输入框上方那一行工具按钮里（DSH 的机制：空白会话会隐藏头部按钮）。
->
-> 侧栏收起（宽度不足）时，入口会出现在**输入框左侧**。
-
----
-
-## 音乐功能（可选）
-
-卡片桌面进桌面页后，除了「代码工作台」还有一张 **「音乐」** 卡片。点进去是内嵌的播放器页面：本地曲库、QQ音乐 / 酷狗 / 网易云三源、歌单、歌词。
-
-它需要另一个插件 **`dsh-music-hub`** 提供宿主路由（`/dsh-music/*`）：
-
-- **没装**：卡片照样能点，进去是空面板，**不报错、不影响代码工作台**。
-- **装了**：完整可用。另外播放条会挂在**所有会话的输入框上方**，不必进卡片桌面也能放歌。
-
-装法：
-
-```
-github:gqf1/dsh-music-hub
-```
-
-或在插件管理器里搜 `dsh-music-hub`。详见 [dsh-music-hub 的 README](https://github.com/gqf1/dsh-music-hub)。
-
-> **想一次装齐**：用上面的**路线 A 全家桶**，两个插件一起装、各自可开关，省掉这一步。
+> 空白的新会话里，卡片桌面入口会出现在输入框上方那一行工具按钮里（DSH 的机制：空白会话会隐藏头部按钮）。
 
 ---
 
@@ -266,7 +225,7 @@ github:gqf1/dsh-music-hub
 2. **装对 profile 了吗？** 桌面客户端用的是 `desktop` profile（由客户端自己管），浏览器版用的是 `web` profile。装错地方插件不会出现。
 3. **版本差太远？** 插件按 DSH **0.2.2-rc.1** 开发（`package.json` 里 `dsh.engines.dsh` 就写着这个下限）。跑 `dsh --version` 看，太旧就升级。
 4. **行 id 冲突？** 如果你之前装过另一个也叫 `card-desktop` 的插件，`cordis.patch.yml` 的行 id 会重复，**重复会导致整棵插件树加载失败**（现象是整个插件面板全部消失，不只是这一个插件）。先卸载旧的再装（见下方「卸载」）。
-5. **是不是同时装了全家桶和单插件？** 见文首那条提示，只走一条路线。
+5. **是不是同一个插件装了两份？** 比如既装了 GitHub 版又装了本地目录版。见文首那条提示，只走一条路线。
 
 ### 打开后一片全黑 / 空白
 
@@ -274,7 +233,7 @@ github:gqf1/dsh-music-hub
 
 ### 卡片桌面里的「音乐」点进去是空的
 
-没装 `dsh-music-hub`。装它，或者改用**路线 A 全家桶**一次装齐。**这不影响代码工作台**。
+没装 `dsh-music-hub`。按文首「第二步」把它装上，然后重启 DSH。**这不影响代码工作台**。
 
 ### 桌面背景图不显示，只有纯色
 
@@ -328,7 +287,7 @@ dsh plugin --profile web remove dsh-card-desktop
 
 重启后生效。删掉本地那个 `D:\dsh-card-desktop` 目录即可。
 
-> 全家桶用户：卸载 `dsh-desk-all` 即可，两个子插件会一起走。
+> 两个插件是分开装的，就分开卸：`dsh-music-hub` 在插件管理器里单独卸载即可。
 
 ---
 
@@ -338,7 +297,7 @@ dsh plugin --profile web remove dsh-card-desktop
 
 **发布形态**
 
-- **新增聚合包 `bundle/`**（`dsh-desk-all`）：一次安装本插件 + `dsh-music-hub`，两条插件行可各自独立开关
+- **README 重写安装章节**：明确「一共两个插件」及各自作用；给出 GitHub 直接安装与本地目录安装两条路线；写明两个插件互不依赖、可各自开关；补充音乐入口为空面板时的排查说明
 - **`package.json` 转为可分发**：去掉 `private`，补 `license` / `repository` / `keywords` / `files`；`dsh.engines.dsh` 明确为 `>= 0.2.2-rc.1`
 - **`dsh.client.inject` 置空**：本插件只用 `react` / `react-dom` / primitives 三个全局模块，不需要预加载其它客户端包
 - **`dsh-music-hub` 保留为 optional peerDependency**：没装也能正常用，只是「音乐」入口内容为空
@@ -450,13 +409,9 @@ dsh-card-desktop/
 │   └── client.js         界面半边（工作台全部界面与编辑逻辑，含音乐入口）
 ├── extras/
 │   └── keybindings.json  桌面端快捷键让位配置（可选）
-├── bundle/               ← 全家桶聚合包 dsh-desk-all（路线 A）
-│   ├── package.json      聚合清单，dependencies 里声明两个子插件
-│   ├── cordis.patch.yml  两条插件行（card-desktop / music-hub），可各自 disabled
-│   ├── lib/index.js      聚合壳宿主入口
-│   └── README.md         全家桶安装说明
 ├── README.md
-└── LICENSE
+├── LICENSE
+└── .gitattributes        禁止行尾自动转换（源码按字节原样存储）
 ```
 
 ---
